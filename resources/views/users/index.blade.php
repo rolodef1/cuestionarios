@@ -6,12 +6,8 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header">
-          Asignaturas
-          @can('asignaturas.create')
-          <a href="{{route('asignaturas.create')}}" class="btn btn-sm btn-primary float-right">Crear</a>
-          @endcan
+          Usuarios
         </div>
-
         <div class="card-body table-responsive">
           <table class="table table-striped table-hover">
             <thead>
@@ -22,23 +18,23 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($asignaturas as $asignatura)
+              @foreach($users as $user)
               <tr>
-                <td>{{$asignatura->id}}</td>
-                <td>{{$asignatura->nombre}}</td>
-                <td>
-                  @can('asignaturas.show')
-                  <a href="{{route('asignaturas.show',$asignatura->id)}}" class="btn btn-sm btn-default">Ver</a>
+                <td>{{$user->id}}</td>
+                <td>{{$user->name}}</td>
+                <td width="10px">
+                  @can('users.show')
+                  <a href="{{route('users.show',$user->id)}}" class="btn btn-sm btn-default">Ver</a>
                   @endcan
                 </td>
-                <td>
-                  @can('asignaturas.edit')
-                  <a href="{{route('asignaturas.edit',$asignatura->id)}}" class="btn btn-sm btn-default">Editar</a>
+                <td width="10px">
+                  @can('users.edit')
+                  <a href="{{route('users.edit',$user->id)}}" class="btn btn-sm btn-default">Editar</a>
                   @endcan
                 </td>
-                <td>
-                  @can('asignaturas.destroy')
-                  {!! Form::open(['route'=>['asignaturas.destroy',$asignatura->id],'method'=>'delete']) !!}
+                <td width="10px">
+                  @can('users.destroy')
+                  {!! Form::open(['route'=>['users.destroy',$user->id],'method'=>'delete']) !!}
                   <button class="btn btn-sm btn-danger">Eliminar</button>
                   {!! Form::close() !!}
                   @endcan
@@ -47,7 +43,7 @@
               @endforeach
             </tbody>
           </table>
-          {{$asignaturas->render()}}
+          {{$users->render()}}
         </div>
       </div>
     </div>
