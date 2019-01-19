@@ -6,9 +6,9 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header">
-          Asignaturas
-          @can('asignaturas.create')
-          <a href="{{route('asignaturas.create')}}" class="btn btn-sm btn-primary float-right">Crear</a>
+          Preguntas
+          @can('preguntas.create')
+          <a href="{{route('preguntas.create',$cuestionario->id)}}" class="btn btn-sm btn-primary float-right">Crear</a>
           @endcan
         </div>
 
@@ -17,28 +17,28 @@
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Nombre</th>
+                <th>Pregunta</th>
                 <th colspan="3">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              @foreach($asignaturas as $asignatura)
+              @foreach($preguntas as $pregunta)
               <tr>
-                <td>{{$asignatura->id}}</td>
-                <td>{{$asignatura->nombre}}</td>
+                <td>{{$pregunta->id}}</td>
+                <td>{{$pregunta->pregunta}}</td>
                 <td>
-                  @can('cuestionarios.index')
-                  <a href="{{route('cuestionarios.index',$asignatura->id)}}" class="btn btn-sm btn-default">Cuestionarios</a>
+                  @can('opciones.index')
+                  <a href="{{route('opciones.index',$pregunta->id)}}" class="btn btn-sm btn-default">Opciones</a>
                   @endcan
                 </td>
                 <td>
-                  @can('asignaturas.edit')
-                  <a href="{{route('asignaturas.edit',$asignatura->id)}}" class="btn btn-sm btn-default">Editar</a>
+                  @can('preguntas.edit')
+                  <a href="{{route('preguntas.edit',[$cuestionario->id,$pregunta->id])}}" class="btn btn-sm btn-default">Editar</a>
                   @endcan
                 </td>
                 <td>
-                  @can('asignaturas.destroy')
-                  {!! Form::open(['route'=>['asignaturas.destroy',$asignatura->id],'method'=>'delete']) !!}
+                  @can('preguntas.destroy')
+                  {!! Form::open(['route'=>['preguntas.destroy',$cuestionario->id,$pregunta->id],'method'=>'delete']) !!}
                   <button class="btn btn-sm btn-danger">Eliminar</button>
                   {!! Form::close() !!}
                   @endcan
@@ -47,7 +47,7 @@
               @endforeach
             </tbody>
           </table>
-          {{$asignaturas->render()}}
+          {{$preguntas->render()}}
         </div>
       </div>
     </div>

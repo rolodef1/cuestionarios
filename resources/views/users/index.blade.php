@@ -14,6 +14,7 @@
               <tr>
                 <th>Id</th>
                 <th>Nombre</th>
+                <th>Roles</th>
                 <th colspan="3">Acciones</th>
               </tr>
             </thead>
@@ -22,6 +23,7 @@
               <tr>
                 <td>{{$user->id}}</td>
                 <td>{{$user->name}}</td>
+                <td>{{implode(',',$user->roles->pluck('name')->toArray())}}</td>
                 <td width="10px">
                   @can('users.show')
                   <a href="{{route('users.show',$user->id)}}" class="btn btn-sm btn-default">Ver</a>

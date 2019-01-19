@@ -21,6 +21,22 @@
     @endforeach
   </ul>
 </div>
+<hr>
+@if($user->esProfesor() || $user->esEstudiante())
+<h3>Lista de asignaturas</h3>
+<div class="form-group">
+  <ul class="list-unstyled">
+    @foreach($asignaturas as $asignatura)
+    <li>
+      <label>
+        {{Form::checkbox('asignaturas[]',$asignatura->id,null)}}
+        {{$asignatura->nombre}}
+      </label>
+    </li>
+    @endforeach
+  </ul>
+</div>
+@endif
 <div class="form-group">
   {{Form::submit('Guardar',['class'=>'btn btn-sm btn-primary'])}}
 </div>

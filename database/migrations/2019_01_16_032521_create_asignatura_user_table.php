@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserAsignaturaTable extends Migration
+class CreateAsignaturaUserTable extends Migration
 {
   /**
   * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserAsignaturaTable extends Migration
   */
   public function up()
   {
-    Schema::create('user_asignatura', function (Blueprint $table) {
+    Schema::create('asignatura_user', function (Blueprint $table) {
       $table->increments('id');
       $table->integer('user_id')->unsigned()->index();
       $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -30,6 +30,6 @@ class CreateUserAsignaturaTable extends Migration
   */
   public function down()
   {
-    Schema::dropIfExists('user_asignatura');
+    Schema::dropIfExists('asignatura_user');
   }
 }

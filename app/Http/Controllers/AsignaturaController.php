@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Asignatura;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AsignaturaController extends Controller
 {
@@ -22,8 +23,12 @@ class AsignaturaController extends Controller
   */
   public function index()
   {
-    $asignaturas = Asignatura::paginate();
-
+    $user = Auth::user();
+    if($user->esAdministrador()){
+      $asignaturas = Asignatura::paginate();
+    }else{
+      $asignaturas = $user->asignaturas()->paginate();
+    }
     return view('asignaturas.index',compact('asignaturas'));
   }
 

@@ -24,10 +24,19 @@ Route::middleware(['auth'])->group(function(){
   //roles
   Route::resource('roles','RoleController');
 
-  //asignaturas
-  Route::resource('asignaturas','AsignaturaController');
-
   //usuarios
   Route::resource('users','UserController');
+
+  //asignaturas
+  Route::resource('asignaturas','AsignaturaController')->except(['show']);
+
+  //cuestionarios
+  Route::resource('/asignaturas/{asignatura}/cuestionarios','CuestionarioController');
+
+  //preguntas
+  Route::resource('/cuestionarios/{cuestionario}/preguntas','PreguntaController');
+
+  //opciones
+  Route::resource('/preguntas/{pregunta}/opciones','OpcionController');
 
 });

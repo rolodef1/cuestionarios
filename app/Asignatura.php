@@ -19,4 +19,8 @@ class Asignatura extends Model
   {
     return $this->belongsToMany('App\User');
   }
+
+  public function cuestionarios(){
+    return $this->hasMany('App\Cuestionario');
+  }
 }

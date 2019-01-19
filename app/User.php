@@ -29,8 +29,23 @@ class User extends Authenticatable
     'password', 'remember_token',
   ];
 
-  public function asignaturas()
-  {
-    return $this->belongsToMany('App\Asignatura');
+  public function asignaturas(){
+    return $this->hasMany('App\Asignatura');
+  }
+
+  public function cuestionarios(){
+    return $this->hasMany('App\Cuestionario');
+  }
+
+  public function esProfesor(){
+    return $this->roles()->where('slug','profesor')->count()?true:false;
+  }
+
+  public function esAdministrador(){
+    return $this->roles()->where('slug','admin')->count()?true:false;
+  }
+
+  public function esEstudiante(){
+    return $this->roles()->where('slug','estudiante')->count()?true:false;
   }
 }
