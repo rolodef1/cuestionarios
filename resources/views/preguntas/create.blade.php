@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('preguntas.create', $cuestionario) }}
+@endsection
 @section('content')
 <div class="container">
   <div class="row justify-content-center">

@@ -87,6 +87,13 @@
   </nav>
 
   <main class="py-4">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          @yield('breadcrumbs')
+        </div>
+      </div>
+    </div>
     @if (session('info'))
     <div class="container">
       <div class="row justify-content-center">
