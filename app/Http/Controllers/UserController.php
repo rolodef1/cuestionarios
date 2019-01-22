@@ -64,7 +64,9 @@ class UserController extends Controller
   {
     $user->update($request->all());
     $user->roles()->sync($request->get('roles'));
-    $user->asignaturas()->sync($request->get('asignaturas'));
+    if($request->get('asignaturas')){
+      $user->asignaturas()->sync($request->get('asignaturas'));
+    }
     return redirect()->route('users.edit',$user->id)->with('info','Usuario actualizado con exito');
   }
 

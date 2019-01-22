@@ -30,7 +30,7 @@ class User extends Authenticatable
   ];
 
   public function asignaturas(){
-    return $this->hasMany('App\Asignatura');
+    return $this->belongsToMany('App\Asignatura');
   }
 
   public function cuestionarios(){

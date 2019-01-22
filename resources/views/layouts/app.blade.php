@@ -11,17 +11,23 @@
 
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}" defer></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+  @stack('js')
 
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
   <!-- Styles -->
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <!--<link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 <body>
   <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+    <nav class="navbar navbar-expand-md navbar-light navbar-laravel bg-light">
       <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
           {{ config('app.name', 'Laravel') }}
@@ -89,7 +95,7 @@
   <main class="py-4">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
           @yield('breadcrumbs')
         </div>
       </div>
@@ -97,7 +103,7 @@
     @if (session('info'))
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
           <div class="alert alert-success" role="alert">
             {{ session('info') }}
           </div>
@@ -105,7 +111,13 @@
       </div>
     </div>
     @endif
-    @yield('content')
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12">
+          @yield('content')
+        </div>
+      </div>
+    </div>
   </main>
 </div>
 </body>

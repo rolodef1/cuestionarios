@@ -24,6 +24,28 @@ class UsersTableSeeder extends Seeder
       $role = Role::where('slug','admin')->first();
       $user->roles()->attach($role->id);
     }
-    factory(App\User::class,20)->create();
+
+    $user = new User();
+    $user->name = 'Profesor';
+    $user->email = 'profesor@profesor.com';
+    $user->email_verified_at = now();
+    $user->password = Hash::make('profesor');
+    $user->remember_token = str_random(10);
+    if($user->save()){
+      $role = Role::where('slug','profesor')->first();
+      $user->roles()->attach($role->id);
+    }
+
+    $user = new User();
+    $user->name = 'Estudiante';
+    $user->email = 'estudiante@estudiante.com';
+    $user->email_verified_at = now();
+    $user->password = Hash::make('estudiante');
+    $user->remember_token = str_random(10);
+    if($user->save()){
+      $role = Role::where('slug','estudiante')->first();
+      $user->roles()->attach($role->id);
+    }
+    //factory(App\User::class,20)->create();
   }
 }
