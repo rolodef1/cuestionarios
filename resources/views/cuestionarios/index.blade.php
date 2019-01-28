@@ -17,7 +17,7 @@
         <tr>
           <th>Id</th>
           <th>Descripcion</th>
-          <th colspan="3">Acciones</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -29,17 +29,16 @@
             @can('preguntas.index')
             <a href="{{route('preguntas.index',$cuestionario->id)}}" class="btn btn-sm btn-default">Preguntas</a>
             @endcan
-          </td>
-          <td>
             @can('cuestionarios.edit')
             <a href="{{route('cuestionarios.edit',[$asignatura->id,$cuestionario->id])}}" class="btn btn-sm btn-default">Editar</a>
             @endcan
-          </td>
-          <td>
             @can('cuestionarios.destroy')
             {!! Form::open(['route'=>['cuestionarios.destroy',$asignatura->id,$cuestionario->id],'method'=>'delete']) !!}
             <button class="btn btn-sm btn-danger">Eliminar</button>
             {!! Form::close() !!}
+            @endcan
+            @can('cuestionarios.show')
+            <a href="{{route('cuestionarios.show',[$asignatura->id,$cuestionario->id])}}" class="btn btn-sm btn-default">Ver</a>
             @endcan
           </td>
         </tr>

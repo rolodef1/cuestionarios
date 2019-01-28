@@ -32,6 +32,8 @@ Route::middleware(['auth'])->group(function(){
 
   //cuestionarios
   Route::resource('/asignaturas/{asignatura}/cuestionarios','CuestionarioController');
+  Route::get('/asignaturas/{asignatura}/cuestionarios/{cuestionario}/rendir','CuestionarioController@rendir')->name('cuestionarios.rendir');
+  Route::post('/asignaturas/{asignatura}/cuestionarios/{solucion}/rendirSave','CuestionarioController@rendirSave')->name('cuestionarios.rendirSave');
 
   //preguntas
   Route::resource('/cuestionarios/{cuestionario}/preguntas','PreguntaController');

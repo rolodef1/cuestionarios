@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Collective\Html\Eloquent\FormAccessible;
 use Carbon\Carbon;
 
-class Cuestionario extends Model
+class Solucion extends Model
 {
+  protected $table = 'soluciones';
+
   use FormAccessible;
   /**
   * The attributes that are mass assignable.
@@ -18,32 +20,25 @@ class Cuestionario extends Model
     'descripcion',
     'intentos',
     'fecha_limite',
-    'hora_limite',
+    'fecha_asignado',
+    'fecha_resuelto',
+    'nota',
     'estado',
     'user_id',
-    'asignatura_id'
+    'cuestionario_id'
   ];
-
-  public function formFechaLimiteAttribute($value)
-  {
-    return Carbon::parse($value)->format('Y-m-d');
-  }
 
   public function user()
   {
     return $this->belongsTo('App\User');
   }
 
-  public function asignatura()
+  public function cuestionario()
   {
-    return $this->belongsTo('App\Asignatura');
+    return $this->belongsTo('App\Cuestionario');
   }
 
   public function preguntas(){
-    return $this->hasMany('App\Pregunta');
-  }
-
-  public function soluciones(){
-    return $this->hasMany('App\Solucion');
+    return $this->hasMany('App\PreguntaSolucion');
   }
 }

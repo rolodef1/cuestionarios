@@ -6,12 +6,64 @@
 <div class="card">
   <div class="card-header">
     Cuestionario
-    @can('cuestionarios.create')
-    <a href="{{route('cuestionarios.create',$asignatura->id)}}" class="btn btn-sm btn-primary float-right">Crear</a>
+    @can('cuestionarios.rendir')
+    @if($cuestionario->intentos>$cuestionario->soluciones()->count())
+    <a href="#" class="btn btn-sm btn-primary float-right" onclick="alertaRendirCuestionario();">Rendir cuestionario</a>
+    @endif
     @endcan
   </div>
   <div class="card-body">
-    <p><strong>Descripcion</strong> {{$cuestionario->descripcion}}</p>
+    <p><strong>Descripcion:</strong> {{$cuestionario->descripcion}}</p>
+    <p><strong>Intentos permitidos:</strong> {{$cuestionario->intentos}}</p>
+    <p><strong>Fecha limite:</strong> {{$cuestionario->fecha_limite}}</p>
+    <p><strong>Fecha de creacion:</strong> {{$cuestionario->created_at}}</p>
+  </div>
+</div>
+<hr>
+<div class="card">
+  <div class="card-header">Soluciones</div>
+  <div class="card-body table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Descripcion</th>
+          <th>Intento</th>
+          <th>Nota</th>
+          <th>Fecha asignacion</th>
+          <th>Fecha resuelto</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($soluciones as $solucion)
+        <tr>
+          <td>{{$solucion->id}}</td>
+          <td>{{$solucion->descripcion}}</td>
+          <td>{{$solucion->intentos}}</td>
+          <td>{{$solucion->nota}}/100</td>
+          <td>{{$solucion->fecha_asignado}}</td>
+          <td>{{$solucion->fecha_resuelto}}</td>
+          <td>
+            @can('cuestionarios.show')
+            <a href="{{route('cuestionarios.show',[$asignatura->id,$cuestionario->id])}}" class="btn btn-sm btn-default">Ver</a>
+            @endcan
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+    {{$soluciones->render()}}
   </div>
 </div>
 @endsection
+@push('js')
+<script type="text/javascript">
+function alertaRendirCuestionario(){
+  var confirmacion = confirm("Esta seguro de rendir el cuestionario?. Se registrara un intento de solucion");
+  if(confirmacion){
+    location.href = "{{route('cuestionarios.rendir',[$asignatura->id,$cuestionario->id])}}";
+  }
+}
+</script>
+@endpush

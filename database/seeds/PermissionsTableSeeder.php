@@ -109,6 +109,11 @@ class PermissionsTableSeeder extends Seeder
       'slug'=>'cuestionarios.destroy',
       'description'=>'Eliminar cualquier cuestionario del sistema',
     ]);
+    Permission::create([
+      'name'=>'Rendir cuestionarios',
+      'slug'=>'cuestionarios.rendir',
+      'description'=>'Rendir cualquier cuestionario del sistema',
+    ]);
 
     //Preguntas
     Permission::create([

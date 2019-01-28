@@ -93,6 +93,11 @@ Breadcrumbs::for('cuestionarios.edit', function ($trail, $asignatura, $cuestiona
   $trail->push('Edicion de cuestionario: '.$cuestionario->descripcion, route('cuestionarios.edit',[$asignatura,$cuestionario]));
 });
 
+Breadcrumbs::for('cuestionarios.rendir', function ($trail, $asignatura, $cuestionario) {
+  $trail->parent('cuestionarios.index',$asignatura);
+  $trail->push('Rendir cuestionario: '.$cuestionario->descripcion, route('cuestionarios.rendir',[$asignatura,$cuestionario]));
+});
+
 //Preguntas
 Breadcrumbs::for('preguntas.index', function ($trail, $cuestionario, $pregunta = null) {
   $trail->parent('cuestionarios.index',$cuestionario->asignatura, $cuestionario);

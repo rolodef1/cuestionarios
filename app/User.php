@@ -37,6 +37,10 @@ class User extends Authenticatable
     return $this->hasMany('App\Cuestionario');
   }
 
+  public function soluciones(){
+    return $this->hasMany('App\Solucion');
+  }
+
   public function esProfesor(){
     return $this->roles()->where('slug','profesor')->count()?true:false;
   }
