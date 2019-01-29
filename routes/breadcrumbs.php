@@ -98,6 +98,11 @@ Breadcrumbs::for('cuestionarios.rendir', function ($trail, $asignatura, $cuestio
   $trail->push('Rendir cuestionario: '.$cuestionario->descripcion, route('cuestionarios.rendir',[$asignatura,$cuestionario]));
 });
 
+Breadcrumbs::for('cuestionarios.solucion', function ($trail, $asignatura, $cuestionario, $solucion) {
+  $trail->parent('cuestionarios.show',$asignatura, $cuestionario);
+  $trail->push('Vista de solucion', route('cuestionarios.solucion',[$asignatura,$solucion]));
+});
+
 //Preguntas
 Breadcrumbs::for('preguntas.index', function ($trail, $cuestionario, $pregunta = null) {
   $trail->parent('cuestionarios.index',$cuestionario->asignatura, $cuestionario);

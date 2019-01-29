@@ -15,35 +15,38 @@
     <table class="table table-striped table-hover">
       <thead>
         <tr>
-          <th>Id</th>
           <th>Nombre</th>
-          <th colspan="3">Acciones</th>
+          <th>Descripcion</th>
+          <th width="10px">Acciones</th>
         </tr>
       </thead>
       <tbody>
         @foreach($roles as $role)
         <tr>
-          <td>{{$role->id}}</td>
           <td>{{$role->name}}</td>
+          <td>{{$role->description}}</td>
           <td width="10px">
-            @can('roles.show')
-            <a href="{{route('roles.show',$role->id)}}" class="btn btn-sm btn-default">Ver</a>
-            @endcan
+            <div class="dropdown">
+              <button class="btn btn-sm btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Acciones
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                @can('roles.show')
+                <a href="{{route('roles.show',$role->id)}}" class="dropdown-item">Ver</a>
+                @endcan
+                @can('roles.edit')
+                <a href="{{route('roles.edit',$role->id)}}" class="dropdown-item">Editar</a>
+                @endcan
+                @if($role->slug!='admin' && $role->slug!='profesor' && $role->slug!='estudiante')
+                @can('roles.destroy')
+                {!! Form::open(['route'=>['roles.destroy',$role->id],'method'=>'delete']) !!}
+                <button class="dropdown-item">Eliminar</button>
+                {!! Form::close() !!}
+                @endcan
+                @endif
+              </div>
+            </div>
           </td>
-          <td width="10px">
-            @can('roles.edit')
-            <a href="{{route('roles.edit',$role->id)}}" class="btn btn-sm btn-default">Editar</a>
-            @endcan
-          </td>
-          @if($role->slug!='admin' && $role->slug!='profesor' && $role->slug!='estudiante')
-          <td width="10px">
-            @can('roles.destroy')
-            {!! Form::open(['route'=>['roles.destroy',$role->id],'method'=>'delete']) !!}
-            <button class="btn btn-sm btn-danger">Eliminar</button>
-            {!! Form::close() !!}
-            @endcan
-          </td>
-          @endif
         </tr>
         @endforeach
       </tbody>

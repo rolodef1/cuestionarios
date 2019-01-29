@@ -17,7 +17,7 @@
         <tr>
           <th>Id</th>
           <th>Nombre</th>
-          <th colspan="3">Acciones</th>
+          <th width="10px">Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -25,22 +25,25 @@
         <tr>
           <td>{{$asignatura->id}}</td>
           <td>{{$asignatura->nombre}}</td>
-          <td>
-            @can('cuestionarios.index')
-            <a href="{{route('cuestionarios.index',$asignatura->id)}}" class="btn btn-sm btn-default">Cuestionarios</a>
-            @endcan
-          </td>
-          <td>
-            @can('asignaturas.edit')
-            <a href="{{route('asignaturas.edit',$asignatura->id)}}" class="btn btn-sm btn-default">Editar</a>
-            @endcan
-          </td>
-          <td>
-            @can('asignaturas.destroy')
-            {!! Form::open(['route'=>['asignaturas.destroy',$asignatura->id],'method'=>'delete']) !!}
-            <button class="btn btn-sm btn-danger">Eliminar</button>
-            {!! Form::close() !!}
-            @endcan
+          <td width="10px">
+            <div class="dropdown">
+              <button class="btn btn-sm btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Acciones
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                @can('cuestionarios.index')
+                <a href="{{route('cuestionarios.index',$asignatura->id)}}" class="dropdown-item">Ver cuestionarios</a>
+                @endcan
+                @can('asignaturas.edit')
+                <a href="{{route('asignaturas.edit',$asignatura->id)}}" class="dropdown-item">Editar</a>
+                @endcan
+                @can('asignaturas.destroy')
+                {!! Form::open(['route'=>['asignaturas.destroy',$asignatura->id],'method'=>'delete']) !!}
+                <button class="dropdown-item">Eliminar</button>
+                {!! Form::close() !!}
+                @endcan
+              </div>
+            </div>
           </td>
         </tr>
         @endforeach

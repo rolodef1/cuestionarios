@@ -11,34 +11,37 @@
     <table id="users" class="table table-striped table-hover">
       <thead>
         <tr>
-          <th>Id</th>
           <th>Nombre</th>
+          <th>Email</th>
           <th>Roles</th>
-          <th colspan="3">Acciones</th>
+          <th width="10px">Acciones</th>
         </tr>
       </thead>
       <tbody>
         @foreach($users as $user)
         <tr>
-          <td>{{$user->id}}</td>
           <td>{{$user->name}}</td>
+          <td>{{$user->email}}</td>
           <td>{{implode(',',$user->roles->pluck('name')->toArray())}}</td>
           <td width="10px">
-            @can('users.show')
-            <a href="{{route('users.show',$user->id)}}" class="btn btn-sm btn-default">Ver</a>
-            @endcan
-          </td>
-          <td width="10px">
-            @can('users.edit')
-            <a href="{{route('users.edit',$user->id)}}" class="btn btn-sm btn-default">Editar</a>
-            @endcan
-          </td>
-          <td width="10px">
-            @can('users.destroy')
-            {!! Form::open(['route'=>['users.destroy',$user->id],'method'=>'delete']) !!}
-            <button class="btn btn-sm btn-danger">Eliminar</button>
-            {!! Form::close() !!}
-            @endcan
+            <div class="dropdown">
+              <button class="btn btn-sm btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Acciones
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                @can('users.show')
+                <a href="{{route('users.show',$user->id)}}" class="dropdown-item">Ver</a>
+                @endcan
+                @can('users.edit')
+                <a href="{{route('users.edit',$user->id)}}" class="dropdown-item">Editar</a>
+                @endcan
+                @can('users.destroy')
+                {!! Form::open(['route'=>['users.destroy',$user->id],'method'=>'delete']) !!}
+                <button class="dropdown-item">Eliminar</button>
+                {!! Form::close() !!}
+                @endcan
+              </div>
+            </div>
           </td>
         </tr>
         @endforeach

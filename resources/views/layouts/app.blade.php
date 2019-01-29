@@ -7,7 +7,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>{{ config('app.name', 'Laravel') }}</title>
+  <title>{{ config('app.name', 'UTPL') }}</title>
 
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}" defer></script>
@@ -15,22 +15,48 @@
   <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
   @stack('js')
+  <script type="text/javascript">
+  $(document).ready(function(){
+    var font_size = localStorage.getItem("font_size");
+    if(typeof font_size =='string'){
+      $('#contenedor-principal').css('font-size',font_size);
+    }
+  });
 
-  <!-- Fonts -->
-  <link rel="dns-prefetch" href="//fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+  function ajustarTexto(){
+    var font_size = $('#contenedor-principal').css('font-size');
+    if(font_size=='16px'){
+      new_font_size='18px';
+    }
+    if(font_size=='18px'){
+      new_font_size='20px';
+    }
+    if(font_size=='20px'){
+      new_font_size='22px';
+    }
+    if(font_size=='22px'){
+      new_font_size='16px';
+    }
+    $('#contenedor-principal').css('font-size',new_font_size);
+    localStorage.setItem("font_size", new_font_size);
+  }
+</script>
 
-  <!-- Styles -->
-  <!--<link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css" rel="stylesheet">
-  <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<!-- Fonts -->
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+
+<!-- Styles -->
+<!--<link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 <body>
   <div id="app">
     <nav class="navbar navbar-expand-md navbar-light navbar-laravel bg-light">
       <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-          {{ config('app.name', 'Laravel') }}
+          {{ config('app.name', 'UTPL') }}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
           <span class="navbar-toggler-icon"></span>
@@ -54,6 +80,9 @@
               <a class="nav-link" href="{{route('roles.index')}}">Roles</a>
             </li>
             @endcan
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick="ajustarTexto();">Ajustar texto</a>
+            </li>
           </ul>
 
           <!-- Right Side Of Navbar -->
@@ -111,7 +140,7 @@
       </div>
     </div>
     @endif
-    <div class="container">
+    <div class="container" id="contenedor-principal">
       <div class="row justify-content-center">
         <div class="col-md-12">
           @yield('content')

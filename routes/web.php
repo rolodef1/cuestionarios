@@ -12,7 +12,10 @@
 */
 
 Route::get('/', function () {
-  return view('welcome');
+  if(Auth::check()){
+    return redirect()->route('home');
+  }
+  return view('auth.login');
 });
 
 Auth::routes();
@@ -34,7 +37,7 @@ Route::middleware(['auth'])->group(function(){
   Route::resource('/asignaturas/{asignatura}/cuestionarios','CuestionarioController');
   Route::get('/asignaturas/{asignatura}/cuestionarios/{cuestionario}/rendir','CuestionarioController@rendir')->name('cuestionarios.rendir');
   Route::post('/asignaturas/{asignatura}/cuestionarios/{solucion}/rendirSave','CuestionarioController@rendirSave')->name('cuestionarios.rendirSave');
-
+  Route::get('/asignaturas/{asignatura}/cuestionarios/{solucion}/solucion','CuestionarioController@solucion')->name('cuestionarios.solucion');
   //preguntas
   Route::resource('/cuestionarios/{cuestionario}/preguntas','PreguntaController');
 

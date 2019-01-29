@@ -114,6 +114,11 @@ class PermissionsTableSeeder extends Seeder
       'slug'=>'cuestionarios.rendir',
       'description'=>'Rendir cualquier cuestionario del sistema',
     ]);
+    Permission::create([
+      'name'=>'Ver soluciones',
+      'slug'=>'cuestionarios.solucion',
+      'description'=>'Ver cualquier solucion del sistema',
+    ]);
 
     //Preguntas
     Permission::create([

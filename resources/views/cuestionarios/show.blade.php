@@ -26,8 +26,7 @@
     <table class="table table-striped table-hover">
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Descripcion</th>
+          <th>Estudiante</th>
           <th>Intento</th>
           <th>Nota</th>
           <th>Fecha asignacion</th>
@@ -38,15 +37,14 @@
       <tbody>
         @foreach($soluciones as $solucion)
         <tr>
-          <td>{{$solucion->id}}</td>
-          <td>{{$solucion->descripcion}}</td>
+          <td>{{$solucion->user->name}}</td>
           <td>{{$solucion->intentos}}</td>
           <td>{{$solucion->nota}}/100</td>
           <td>{{$solucion->fecha_asignado}}</td>
           <td>{{$solucion->fecha_resuelto}}</td>
           <td>
-            @can('cuestionarios.show')
-            <a href="{{route('cuestionarios.show',[$asignatura->id,$cuestionario->id])}}" class="btn btn-sm btn-default">Ver</a>
+            @can('cuestionarios.solucion')
+            <a href="{{route('cuestionarios.solucion',[$asignatura->id,$solucion->id])}}" class="btn btn-sm btn-default">Ver</a>
             @endcan
           </td>
         </tr>

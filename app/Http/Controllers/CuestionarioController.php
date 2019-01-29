@@ -20,6 +20,7 @@ class CuestionarioController extends Controller
     $this->middleware('permission:cuestionarios.show')->only('show');
     $this->middleware('permission:cuestionarios.destroy')->only('destroy');
     $this->middleware('permission:cuestionarios.rendir')->only(['rendir','rendirSave']);
+    $this->middleware('permission:cuestionarios.solucion')->only('solucion');
   }
   /**
   * Display a listing of the resource.
@@ -211,6 +212,11 @@ class CuestionarioController extends Controller
     $solucion->nota = $nota;
     $solucion->save();
     return redirect()->route('cuestionarios.show',[$asignatura->id,$solucion->cuestionario_id])->with('info','El cuestionario fue rendido con exito');
+  }
+
+  public function solucion(Asignatura $asignatura,Solucion $solucion)
+  {
+    return view('cuestionarios.solucion',compact('asignatura','solucion'));
   }
 
   private function calificarSolucion(Solucion $solucion){
