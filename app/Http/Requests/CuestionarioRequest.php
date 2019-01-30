@@ -25,7 +25,7 @@ class CuestionarioRequest extends FormRequest
     {
         return [
             'descripcion' => ['required', 'string', 'max:255'],
-            'intentos' => ['required', 'number'],
+            'intentos' => ['required', 'integer'],
             'fecha_limite' => ['required', 'date'],
             'hora_limite' => ['required'],
             'estado' => ['required', 'string'],

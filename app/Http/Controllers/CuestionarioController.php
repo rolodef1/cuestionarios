@@ -82,9 +82,9 @@ class CuestionarioController extends Controller
   {
     $user = Auth::user();
     if($user->esProfesor() || $user->esAdministrador()){
-      $soluciones = $cuestionario->soluciones()->paginate();
+      $soluciones = $cuestionario->soluciones()->where('estado','Completo')->where('mayor_nota',true)->paginate();
     }else{
-      $soluciones = $cuestionario->soluciones()->where('user_id',$user->id)->paginate();
+      $soluciones = $cuestionario->soluciones()->where('user_id',$user->id)->where('estado','Completo')->paginate();
     }
     return view('cuestionarios.show',compact('asignatura','cuestionario','soluciones'));
   }
@@ -178,7 +178,7 @@ class CuestionarioController extends Controller
   * @param  \Illuminate\Http\Request  $request
   * @return \Illuminate\Http\Response
   */
-  public function rendirSave(CuestionarioRequest $request,Asignatura $asignatura,Solucion $solucion)
+  public function rendirSave(Request $request,Asignatura $asignatura,Solucion $solucion)
   {
     foreach ($solucion->preguntas as $pregunta) {
       if(isset($request->respuestas[$pregunta->id])){
@@ -212,12 +212,26 @@ class CuestionarioController extends Controller
     $solucion->estado = 'Completo';
     $solucion->nota = $nota;
     $solucion->save();
+    $this->validarMejorNota($solucion->cuestionario);
     return redirect()->route('cuestionarios.show',[$asignatura->id,$solucion->cuestionario_id])->with('info','El cuestionario fue rendido con exito');
   }
 
   public function solucion(Asignatura $asignatura,Solucion $solucion)
   {
     return view('cuestionarios.solucion',compact('asignatura','solucion'));
+  }
+
+  private function validarMejorNota(Cuestionario $cuestionario){
+    $user = Auth::user();
+    $soluciones = $cuestionario->soluciones()->where('user_id',$user->id)->where('estado','Completo')->orderBy('nota','DESC')->get();
+    foreach ($soluciones as $key=>$solucion) {
+      if($key==0){
+        $solucion->mayor_nota = true;
+      }else{
+        $solucion->mayor_nota = false;
+      }
+      $solucion->save();
+    }
   }
 
   private function calificarSolucion(Solucion $solucion){

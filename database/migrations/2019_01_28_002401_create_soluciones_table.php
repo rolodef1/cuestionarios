@@ -22,6 +22,7 @@ class CreateSolucionesTable extends Migration
       $table->datetime('fecha_resuelto')->nullable();
       $table->decimal('nota')->nullable();
       $table->string('estado');
+      $table->boolean('mayor_nota')->nullable();
       $table->integer('user_id')->unsigned()->index();
       $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
       $table->integer('cuestionario_id')->unsigned()->index();

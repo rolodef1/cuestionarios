@@ -37,7 +37,15 @@ class OpcionController extends Controller
   */
   public function create(Pregunta $pregunta)
   {
-    return view('opciones.create',compact('pregunta'));
+    $resp_correcta_seleccionada = 0;
+    if($pregunta->tipo=='seleccion_unica'){
+      foreach ($pregunta->opciones as $opcion_pregunta) {
+        if($opcion_pregunta->resp_correcta){
+          $resp_correcta_seleccionada = 1;
+        }
+      }
+    }
+    return view('opciones.create',compact('pregunta','resp_correcta_seleccionada'));
   }
 
   /**
@@ -75,7 +83,15 @@ class OpcionController extends Controller
   public function edit(Pregunta $pregunta, $opcion)
   {
     $opcion = Opcion::findOrFail($opcion);
-    return view('opciones.edit',compact('pregunta','opcion'));
+    $resp_correcta_seleccionada = 0;
+    if($pregunta->tipo=='seleccion_unica' && !$opcion->resp_correcta){
+      foreach ($pregunta->opciones as $opcion_pregunta) {
+        if($opcion_pregunta->resp_correcta){
+          $resp_correcta_seleccionada = 1;
+        }
+      }
+    }
+    return view('opciones.edit',compact('pregunta','opcion','resp_correcta_seleccionada'));
   }
 
   /**
