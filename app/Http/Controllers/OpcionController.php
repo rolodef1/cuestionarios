@@ -6,6 +6,7 @@ use App\Opcion;
 use App\Pregunta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\OpcionRequest;
 
 class OpcionController extends Controller
 {
@@ -45,7 +46,7 @@ class OpcionController extends Controller
   * @param  \Illuminate\Http\Request  $request
   * @return \Illuminate\Http\Response
   */
-  public function store(Request $request,Pregunta $pregunta)
+  public function store(OpcionRequest $request,Pregunta $pregunta)
   {
     $atributos = $request->all();
     $atributos['pregunta_id']=$pregunta->id;
@@ -84,7 +85,7 @@ class OpcionController extends Controller
   * @param  \App\Pregunta  $cuestionario
   * @return \Illuminate\Http\Response
   */
-  public function update(Request $request, Pregunta $pregunta, $opcion)
+  public function update(OpcionRequest $request, Pregunta $pregunta, $opcion)
   {
     $opcion = Opcion::findOrFail($opcion);
     $opcion->update($request->all());

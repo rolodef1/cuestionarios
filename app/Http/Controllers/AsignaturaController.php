@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Asignatura;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\AsignaturaRequest;
 
 class AsignaturaController extends Controller
 {
@@ -48,7 +49,7 @@ class AsignaturaController extends Controller
   * @param  \Illuminate\Http\Request  $request
   * @return \Illuminate\Http\Response
   */
-  public function store(Request $request)
+  public function store(AsignaturaRequest $request)
   {
     $asignatura = Asignatura::create($request->all());
     return redirect()->route('asignaturas.edit',$asignatura->id)->with('info','Asignatura creada con exito');
@@ -83,7 +84,7 @@ class AsignaturaController extends Controller
   * @param  \App\Asignatura  $asignatura
   * @return \Illuminate\Http\Response
   */
-  public function update(Request $request, Asignatura $asignatura)
+  public function update(AsignaturaRequest $request, Asignatura $asignatura)
   {
     $asignatura->update($request->all());
     return redirect()->route('asignaturas.edit',$asignatura->id)->with('info','Asignatura actualizada con exito');

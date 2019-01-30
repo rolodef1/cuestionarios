@@ -9,6 +9,7 @@ use App\PreguntaSolucion;
 use App\OpcionSolucion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CuestionarioRequest;
 
 class CuestionarioController extends Controller
 {
@@ -59,7 +60,7 @@ class CuestionarioController extends Controller
   * @param  \Illuminate\Http\Request  $request
   * @return \Illuminate\Http\Response
   */
-  public function store(Request $request,Asignatura $asignatura)
+  public function store(CuestionarioRequest $request,Asignatura $asignatura)
   {
     $user = Auth::user();
     $atributos = $request->all();
@@ -106,7 +107,7 @@ class CuestionarioController extends Controller
   * @param  \App\Cuestionario  $cuestionario
   * @return \Illuminate\Http\Response
   */
-  public function update(Request $request, Asignatura $asignatura, Cuestionario $cuestionario)
+  public function update(CuestionarioRequest $request, Asignatura $asignatura, Cuestionario $cuestionario)
   {
     $atributos = $request->all();
     $atributos['fecha_limite'] = $atributos['fecha_limite'].' '.$atributos['hora_limite'];
@@ -167,7 +168,7 @@ class CuestionarioController extends Controller
       }
       return view('cuestionarios.rendir',compact('asignatura','solucion'));
     }else{
-      return back()->with('info','No es posible rendir el cuestionario ya que se ha alcanzado el numero maximo de intentos');
+      return back()->with('info_error','No es posible rendir el cuestionario ya que se ha alcanzado el numero maximo de intentos');
     }
   }
 
@@ -177,7 +178,7 @@ class CuestionarioController extends Controller
   * @param  \Illuminate\Http\Request  $request
   * @return \Illuminate\Http\Response
   */
-  public function rendirSave(Request $request,Asignatura $asignatura,Solucion $solucion)
+  public function rendirSave(CuestionarioRequest $request,Asignatura $asignatura,Solucion $solucion)
   {
     foreach ($solucion->preguntas as $pregunta) {
       if(isset($request->respuestas[$pregunta->id])){

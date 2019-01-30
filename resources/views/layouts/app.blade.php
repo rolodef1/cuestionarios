@@ -80,13 +80,13 @@
               <a class="nav-link" href="{{route('roles.index')}}">Roles</a>
             </li>
             @endcan
-            <li class="nav-item">
-              <a class="nav-link" href="#" onclick="ajustarTexto();">Ajustar texto</a>
-            </li>
           </ul>
 
           <!-- Right Side Of Navbar -->
           <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick="ajustarTexto();">Ajustar texto</a>
+            </li>
             <!-- Authentication Links -->
             @guest
             <li class="nav-item">
@@ -135,6 +135,17 @@
         <div class="col-md-12">
           <div class="alert alert-success" role="alert">
             {{ session('info') }}
+          </div>
+        </div>
+      </div>
+    </div>
+    @endif
+    @if (session('info_error'))
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12">
+          <div class="alert alert-danger" role="alert">
+            {{ session('info_error') }}
           </div>
         </div>
       </div>

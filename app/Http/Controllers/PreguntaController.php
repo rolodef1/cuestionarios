@@ -6,6 +6,7 @@ use App\Pregunta;
 use App\Cuestionario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\PreguntaRequest;
 
 class PreguntaController extends Controller
 {
@@ -45,7 +46,7 @@ class PreguntaController extends Controller
   * @param  \Illuminate\Http\Request  $request
   * @return \Illuminate\Http\Response
   */
-  public function store(Request $request,Cuestionario $cuestionario)
+  public function store(PreguntaRequest $request,Cuestionario $cuestionario)
   {
     $atributos = $request->all();
     $atributos['cuestionario_id']=$cuestionario->id;
@@ -82,7 +83,7 @@ class PreguntaController extends Controller
   * @param  \App\Pregunta  $cuestionario
   * @return \Illuminate\Http\Response
   */
-  public function update(Request $request, Cuestionario $cuestionario, Pregunta $pregunta)
+  public function update(PreguntaRequest $request, Cuestionario $cuestionario, Pregunta $pregunta)
   {
     $pregunta->update($request->all());
     return redirect()->route('preguntas.edit',[$cuestionario->id,$pregunta->id])->with('info','Pregunta actualizada con exito');
