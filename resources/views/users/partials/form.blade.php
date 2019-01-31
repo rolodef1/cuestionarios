@@ -43,6 +43,21 @@
   </span>
   @endif
 </div>
+@if(!isset($user))
+<div class="form-group">
+  <label for="password">{{ __('Password') }}</label>
+  <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password">
+  @if ($errors->has('password'))
+  <span class="invalid-feedback" role="alert">
+    <strong>{{ $errors->first('password') }}</strong>
+  </span>
+  @endif
+</div>
+<div class="form-group">
+  <label for="password-confirm">{{ __('Confirm Password') }}</label>
+  <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
+</div>
+@endif
 <hr>
 <h3>Lista de roles</h3>
 <div class="form-group">
@@ -59,7 +74,7 @@
   </ul>
 </div>
 <hr>
-@if($user->esProfesor() || $user->esEstudiante())
+@if(isset($user) && ($user->esProfesor() || $user->esEstudiante()))
 <h3>Lista de asignaturas</h3>
 <div class="form-group">
   <ul class="list-unstyled">

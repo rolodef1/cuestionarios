@@ -6,6 +6,7 @@ use App\User;
 use Caffeinated\Shinobi\Models\Role;
 use App\Asignatura;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -27,6 +28,33 @@ class UserController extends Controller
     $users = User::paginate();
 
     return view('users.index',compact('users'));
+  }
+
+  /**
+  * Show the form for creating a new resource.
+  *
+  * @return \Illuminate\Http\Response
+  */
+  public function create()
+  {
+    $roles = Role::get();
+    $asignaturas = Asignatura::get();
+    return view('users.create',compact('roles','asignaturas'));
+  }
+
+  /**
+  * Store a newly created resource in storage.
+  *
+  * @param  \Illuminate\Http\Request  $request
+  * @return \Illuminate\Http\Response
+  */
+  public function store(UserRequest $request)
+  {
+    $atributos = $request->all();
+    $atributos['password'] = Hash::make($atributos['password']);
+    $user = User::create($atributos);
+    $user->roles()->sync($request->get('roles'));
+    return redirect()->route('users.edit',$user->id)->with('info','Usuario creado con exito');
   }
 
   /**

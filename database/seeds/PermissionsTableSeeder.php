@@ -24,6 +24,11 @@ class PermissionsTableSeeder extends Seeder
       'description'=>'Ver en detalle cada usuario del sistema',
     ]);
     Permission::create([
+      'name'=>'Creación de usuarios',
+      'slug'=>'users.create',
+      'description'=>'Crear un nuevo usuario en el sistema',
+    ]);
+    Permission::create([
       'name'=>'Edición de usuario',
       'slug'=>'users.edit',
       'description'=>'Editar cualquier dato de usuario del sistema',

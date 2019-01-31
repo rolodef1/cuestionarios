@@ -4,10 +4,10 @@
 @endsection
 @section('content')
 <div class="card">
-  <div class="card-header">Asignatura</div>
+  <div class="card-header">Usuario</div>
   <div class="card-body">
-    {!!Form::open(['route'=>'asignaturas.store'])!!}
-    @include('asignaturas.partials.form')
+    {!!Form::open(['route'=>'users.store'])!!}
+    @include('users.partials.form')
     {!!Form::close()!!}
   </div>
 </div>
