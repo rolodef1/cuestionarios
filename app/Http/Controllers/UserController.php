@@ -18,6 +18,7 @@ class UserController extends Controller
     $this->middleware('permission:users.show')->only('show');
     $this->middleware('permission:users.destroy')->only('destroy');
   }
+
   /**
   * Display a listing of the resource.
   *
